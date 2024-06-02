@@ -1,3 +1,7 @@
 import './style.css';
+import { renderTasks, renderProjects } from "./js/render.js";
+import { forms } from "./js/forms.js";
 
-console.log('Hello, Todo List!');
+document.addEventListener('DOMContentLoaded', () => {
+
+});

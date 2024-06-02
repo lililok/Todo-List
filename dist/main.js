@@ -116,7 +116,37 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n\n\nconsole.log('Hello, Todo List!');\n\n//# sourceURL=webpack://todo-list/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _js_render_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./js/render.js */ \"./src/js/render.js\");\n/* harmony import */ var _js_forms_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/forms.js */ \"./src/js/forms.js\");\n\n\n\n\ndocument.addEventListener('DOMContentLoaded', () => {\n\n});\n\n\n//# sourceURL=webpack://todo-list/./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/js/classes.js":
+/*!***************************!*\
+  !*** ./src/js/classes.js ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   Project: () => (/* binding */ Project),\n/* harmony export */   Task: () => (/* binding */ Task)\n/* harmony export */ });\nclass Task {\n    constructor(title, description, status=false, priority='low', date) {\n        this.title = title;\n        this.description = description;\n        this.status = status;\n        this.priority = priority;\n        this.date = date;\n    }\n\n    statusSwitch () {\n        this.status = !this.status;\n    }\n\n    updateTask (title, description, priority, date) {\n        this.title = title;\n        this.description = description;\n        this.priority = priority;\n        this.date = date;\n    }\n}\n\nclass Project {\n    constructor(title) {\n        this.title = title;\n        this.tasks = [];\n    }\n    \n    addTask(task) {\n        this.tasks.push(task);\n    }\n    \n    removeTask(index) {\n        this.tasks.splice(index, 1);\n    }\n\n    getTasks() {\n        return this.tasks;\n    }\n}\n\n//# sourceURL=webpack://todo-list/./src/js/classes.js?");
+
+/***/ }),
+
+/***/ "./src/js/forms.js":
+/*!*************************!*\
+  !*** ./src/js/forms.js ***!
+  \*************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   forms: () => (/* binding */ forms)\n/* harmony export */ });\nvar projectsModal = document.querySelector(\".projects-dialog\");\nvar tasksModal = document.querySelector(\".tasks-dialog\");\n\nvar projectsButton = document.getElementsByClassName(\"open-btn\")[0];\nvar tasksButton = document.getElementsByClassName(\"open-btn\")[1];\n\nclass forms {\n    \n}\n\n//# sourceURL=webpack://todo-list/./src/js/forms.js?");
+
+/***/ }),
+
+/***/ "./src/js/render.js":
+/*!**************************!*\
+  !*** ./src/js/render.js ***!
+  \**************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   renderProjects: () => (/* binding */ renderProjects),\n/* harmony export */   renderTasks: () => (/* binding */ renderTasks)\n/* harmony export */ });\n/* harmony import */ var _classes_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./classes.js */ \"./src/js/classes.js\");\n\n\nfunction renderTasks() {\n    const taskList = document.querySelector('.task-list')\n    taskList.innerHTML = '';\n}\n\nfunction renderProjects() {\n    const projectList = document.querySelector('.project-list')\n    projectList.innerHTML = '';\n}\n\n\n\n//# sourceURL=webpack://todo-list/./src/js/render.js?");
 
 /***/ })
 
