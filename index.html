@@ -13,16 +13,30 @@
         <div class="sidebar">
             <div class="add-project">
                 <h3 class="sidebar-text">Add a project</h3>
-                <button class="sidebar-btn"></button>
+                <button class="open-btn"></button>
             </div>
+            <dialog class="projects-dialog">
+                <form id="project-form" method="dialog">
+                  <input type="text" id="project-title" placeholder="Enter project title" required>
+                  <button type="submit"></button>
+                  <button type="button" id="close-project-dialog">Cancel</button>
+                </form>
+              </dialog>
             <div class="project-list"></div>
         </div>
         <div class="content">
             <h1 class="project-name"></h1>
             <div class="add-task">
                 <h3 class="content-text">Add a task</h3>
-                <button class="content-btn"></button>
+                <button class="open-btn"></button>
             </div>
+            <dialog class="tasks-dialog">
+                <form id="task-form" method="dialog">
+                  <input type="text" id="task-title" placeholder="Enter task title" required>
+                  <button type="submit"></button>
+                  <button type="button" id="close-task-dialog">Cancel</button>
+                </form>
+              </dialog>
             <div class="task-list"></div>
         </div>
     </div>
