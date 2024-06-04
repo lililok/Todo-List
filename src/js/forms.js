@@ -1,5 +1,9 @@
-var openBtnProjects = document.getElementById("projects");
-var openBtnTasks = document.getElementById("tasks");
+import { saveProject, saveTask, setActiveProject } from './storage.js';
+import { Task, Project } from './classes.js';
+import { renderProjects } from './render.js';
+
+var openBtnProjects = document.querySelector("#projects");
+var openBtnTasks = document.querySelector("#tasks");
 var projectFormContainer = document.querySelector(".project-form-container");
 var taskFormContainer = document.querySelector(".task-form-container");
 
@@ -31,9 +35,16 @@ openBtnProjects.addEventListener("click", function() {
 
     form.addEventListener("submit", function(event) {
         event.preventDefault();
+
         var projectName = document.getElementById("project-name").value;
+
+        const projectClass = new Project(projectName);
+        saveProject(projectClass);
+        setActiveProject(projectName);
+
         form.reset();
         projectFormContainer.removeChild(form);
+        renderProjects();
     });
 });
 
@@ -119,7 +130,15 @@ openBtnTasks.addEventListener("click", function() {
 
     form.addEventListener("submit", function(event) {
         event.preventDefault();
+
         var taskName = document.getElementById("task-name").value;
+        var taskDescription = document.getElementById("task-description").value;
+        var taskPriority = document.getElementById("task-priority").textContent;
+        var taskDate = document.getElementById("task-date").value;
+
+        const taskClass = new Task(taskName, taskDescription, taskDate, taskPriority);
+        saveTask(taskClass);
+
         form.reset();
         dialog.close();
         taskFormContainer.removeChild(dialog);

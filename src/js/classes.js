@@ -20,9 +20,10 @@ export class Task {
 }
 
 export class Project {
-    constructor(title) {
+    constructor(title, active=true) {
         this.title = title;
         this.tasks = [];
+        this.active = active;
     }
     
     addTask(task) {

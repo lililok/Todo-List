@@ -1,9 +1,10 @@
 import './style.css';
-import { renderTasks, renderProjects } from "./js/render.js";
-import { initializeModal } from "./js/forms.js";
+import './js/forms.js'
+import { renderProjects } from './js/render.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-     
+    renderProjects();
 });
 
 
+// task form should generate in active project scope and data send to task array

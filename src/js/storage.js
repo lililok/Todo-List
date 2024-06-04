@@ -1,20 +1,35 @@
-function saveProject(projectName) {
+export function saveProject(projectClass) {
     var projects = JSON.parse(localStorage.getItem('projects')) || [];
 
     projects.push({
-        name: projectName
+        title: projectClass.title,
+        tasks: projectClass.tasks
     });
 
     localStorage.setItem('projects', JSON.stringify(projects));
 }
 
-function saveTask(taskName, taskDate) {
+export function saveTask(taskClass) {
     var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
     tasks.push({
-        name: taskName,
-        date: taskDate
+        title: taskClass.title,
+        description: taskClass.description,
+        priority: taskClass.priority,
+        date: taskClass.date,
+        status: taskClass.status
     });
 
     localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+export function setActiveProject(projectTitle) {
+    let projects = JSON.parse(localStorage.getItem('projects')) || [];
+
+    projects.forEach(project => {
+        project.active = (project.title === projectTitle);
+    });
+
+    localStorage.setItem('projects', JSON.stringify(projects));
+    localStorage.setItem('activeProject', projectTitle);
 }
