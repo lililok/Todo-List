@@ -33,6 +33,6 @@ body {
     background-color: rgb(155, 216, 216);
 }
 
-.dialog {
-    
+.completed p {
+    text-decoration: line-through;
 }

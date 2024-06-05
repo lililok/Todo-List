@@ -9,27 +9,33 @@ export function saveProject(projectClass) {
     localStorage.setItem('projects', JSON.stringify(projects));
 }
 
-export function saveTask(taskClass) {
-    var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-
-    tasks.push({
-        title: taskClass.title,
-        description: taskClass.description,
-        priority: taskClass.priority,
-        date: taskClass.date,
-        status: taskClass.status
-    });
-
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+export function setActiveProject(index) {
+    localStorage.setItem('activeProjectIdx', index);
 }
 
-export function setActiveProject(projectTitle) {
+export function getActiveProjectIndex() {
+    return parseInt(localStorage.getItem('activeProjectIdx'), 10);
+}
+
+export function deleteProject(index) {
     let projects = JSON.parse(localStorage.getItem('projects')) || [];
-
-    projects.forEach(project => {
-        project.active = (project.title === projectTitle);
-    });
-
+    projects.splice(index, 1);
     localStorage.setItem('projects', JSON.stringify(projects));
-    localStorage.setItem('activeProject', projectTitle);
+    if (localStorage.getItem('activeProject') == index) {
+        localStorage.removeItem('activeProject');
+    }
+}
+
+export function deleteTask(projectIndex, taskIndex) {
+    let projects = JSON.parse(localStorage.getItem('projects')) || [];
+    projects[projectIndex].tasks.splice(taskIndex, 1);
+    localStorage.setItem('projects', JSON.stringify(projects));
+}
+
+export function updateProject(index) {
+
+}
+
+export function updateTask(projectIndex, taskIndex) {
+
 }

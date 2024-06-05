@@ -1,4 +1,4 @@
-import { saveProject, saveTask, setActiveProject } from './storage.js';
+import { saveProject, setActiveProject, getActiveProjectIndex } from './storage.js';
 import { Task, Project } from './classes.js';
 import { renderProjects } from './render.js';
 
@@ -15,7 +15,6 @@ openBtnProjects.addEventListener("click", function() {
     
     var label = document.createElement("label");
     label.setAttribute("for", "project-name");
-    label.textContent = "Project name:";
     
     var input = document.createElement("input");
     input.type = "text";
@@ -25,7 +24,7 @@ openBtnProjects.addEventListener("click", function() {
 
     var submitButton = document.createElement("button");
     submitButton.type = "submit";
-    submitButton.textContent = "Ok";
+    submitButton.textContent = "ok";
     
     form.appendChild(label);
     form.appendChild(input);
@@ -40,7 +39,9 @@ openBtnProjects.addEventListener("click", function() {
 
         const projectClass = new Project(projectName);
         saveProject(projectClass);
-        setActiveProject(projectName);
+
+        const projects = JSON.parse(localStorage.getItem('projects')) || [];
+        setActiveProject(projects.length - 1);
 
         form.reset();
         projectFormContainer.removeChild(form);
@@ -55,6 +56,16 @@ openBtnTasks.addEventListener("click", function() {
 
     var form = document.createElement("form");
     form.id = "task-form";
+
+    var closeButton = document.createElement("button");
+    closeButton.textContent = "⨯";
+
+    closeButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        form.reset();
+        dialog.close();
+        taskFormContainer.removeChild(dialog);
+    });
     
     var labelName = document.createElement("label");
     labelName.setAttribute("for", "task-name");
@@ -82,17 +93,17 @@ openBtnTasks.addEventListener("click", function() {
     selectPriority.name = "task-priority";
 
     var option1 = document.createElement("option");
-    option1.value = "1";
+    option1.value = "Low";
     option1.textContent = "Low";
     selectPriority.appendChild(option1);
 
     var option2 = document.createElement("option");
-    option2.value = "2";
+    option2.value = "Medium";
     option2.textContent = "Medium";
     selectPriority.appendChild(option2);
 
     var option3 = document.createElement("option");
-    option3.value = "3";
+    option3.value = "High";
     option3.textContent = "High";
     selectPriority.appendChild(option3);
 
@@ -108,8 +119,10 @@ openBtnTasks.addEventListener("click", function() {
 
     var submitButton = document.createElement("button");
     submitButton.type = "submit";
-    submitButton.textContent = "Ok";
+    submitButton.textContent = "ok";
     
+    form.appendChild(closeButton);
+
     form.appendChild(labelName);
     form.appendChild(inputName);
     form.appendChild(inputDescription);
@@ -133,14 +146,21 @@ openBtnTasks.addEventListener("click", function() {
 
         var taskName = document.getElementById("task-name").value;
         var taskDescription = document.getElementById("task-description").value;
-        var taskPriority = document.getElementById("task-priority").textContent;
+        var taskPriority = document.getElementById("task-priority").value;
         var taskDate = document.getElementById("task-date").value;
 
         const taskClass = new Task(taskName, taskDescription, taskDate, taskPriority);
-        saveTask(taskClass);
+        const activeProjectIndex = getActiveProjectIndex();
+        let projects = JSON.parse(localStorage.getItem('projects')) || [];
+        const activeProject = projects[activeProjectIndex];
+        if (activeProject) {
+            activeProject.tasks.push(taskClass);
+            localStorage.setItem('projects', JSON.stringify(projects));
+        }
 
         form.reset();
         dialog.close();
         taskFormContainer.removeChild(dialog);
+        renderProjects();
     });
 });
