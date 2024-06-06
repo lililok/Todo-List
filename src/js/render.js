@@ -1,5 +1,5 @@
-import { setActiveProject, getActiveProjectIndex, deleteTask, deleteProject, updateProject, updateTask, saveProject} from './storage.js';
-import { Project, Task } from './classes.js';
+import { setActiveProject, getActiveProjectIndex, deleteTask, deleteProject, updateProject, updateTask} from './storage.js';
+import { Task } from './classes.js';
 
 export function renderProjects() {
     const projectList = document.querySelector('.project-list')
@@ -14,11 +14,34 @@ export function renderProjects() {
 
     projects.forEach((project, index) => {
         const projectDiv = document.createElement('div');
-        projectDiv.innerHTML = `
-        <p>${project.title}</p>
-        <button class="update-btn project">update</button>
-        <button class="delete-btn project">delete</button>
-        `;
+        projectDiv.className = 'project';
+        projectDiv.innerHTML = `<p>${project.title}</p>`;
+
+        if (!project.system) {
+            const updateButton = document.createElement('button');
+            updateButton.className = 'update-btn project';
+            updateButton.textContent = 'update';
+            projectDiv.appendChild(updateButton);
+
+            const deleteButton = document.createElement('button');
+            deleteButton.className = 'delete-btn project';
+            deleteButton.textContent = 'delete';
+            projectDiv.appendChild(deleteButton);
+
+            projectDiv.querySelector('.delete-btn.project').addEventListener('click', (e) => {
+                e.stopPropagation();
+                deleteProject(index);
+                setActiveProject(0);
+                renderProjects();
+            });
+    
+            projectDiv.querySelector('.update-btn.project').addEventListener('click', (e) => {
+                e.stopPropagation();
+                updateProject(index);
+                renderProjects();
+            });
+        }
+
         projectDiv.classList.add('project');
         if (index === activeProjectIndex) {
             projectDiv.classList.add('active');
@@ -32,24 +55,12 @@ export function renderProjects() {
             renderProjects();
         });
 
-        projectDiv.querySelector('.delete-btn.project').addEventListener('click', (e) => {
-            e.stopPropagation();
-            deleteProject(index);
-            setActiveProject(-1);
-            renderProjects();
-        });
-
-        projectDiv.querySelector('.update-btn.project').addEventListener('click', (e) => {
-            e.stopPropagation();
-            updateProject(index);
-            renderProjects();
-        });
-
         projectList.appendChild(projectDiv);
     });
     if (activeProject) {
         activeProject.tasks.forEach((task, taskIndex) => {
             const taskDiv = document.createElement('div');
+            taskDiv.className = 'task';
             const currentTask = new Task(task.title, task.description, task.date, task.priority, task.status);
     
             if (currentTask.status) {

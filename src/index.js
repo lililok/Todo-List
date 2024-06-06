@@ -1,24 +1,23 @@
 import './style.css';
 import "./js/forms.js";
 import { renderProjects } from './js/render.js';
-import { saveProject, setActiveProject } from './js/storage.js';
+import { setActiveProject } from './js/storage.js';
 import { Project } from './js/classes.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    //createDefaultProject()
+    createDefaultProject();
     renderProjects();
 });
 
-/*function createDefaultProject() {
-    const defaultProjectExists = projects.some(project => project.name === 'default');
+function createDefaultProject() {
+    const defaultProject = new Project ("Default", true);
+    let projects = JSON.parse(localStorage.getItem('projects')) || [];
+    setActiveProject(0);
+    
+    const defaultExist = projects.some(project => project.title === "Default");
 
-    if (!defaultProjectExists) {
-        const defaultProject = new Project('default');
-        saveProject(defaultProject);
-        setActiveProject(-1);
-    } else {
-        const defaultProjectIndex = projects.findIndex(project => project.name === 'default');
-        setActiveProject(defaultProjectIndex);
+    if (!defaultExist) {
+        projects.unshift(defaultProject);
+        localStorage.setItem('projects', JSON.stringify(projects));
     }
-}*/
-
+}

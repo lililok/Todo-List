@@ -8,29 +8,7 @@ var projectFormContainer = document.querySelector(".project-form-container");
 var taskFormContainer = document.querySelector(".task-form-container");
 
 openBtnProjects.addEventListener("click", function() {
-    projectFormContainer.innerHTML = '';
-
-    var form = document.createElement("form");
-    form.id = "project-form";
-    
-    var label = document.createElement("label");
-    label.setAttribute("for", "project-name");
-    
-    var input = document.createElement("input");
-    input.type = "text";
-    input.id = "project-name";
-    input.name = "project-name";
-    input.required = true;
-
-    var submitButton = document.createElement("button");
-    submitButton.type = "submit";
-    submitButton.textContent = "ok";
-    
-    form.appendChild(label);
-    form.appendChild(input);
-    form.appendChild(submitButton);
-    
-    projectFormContainer.appendChild(form);
+    const form = projectForm();
 
     form.addEventListener("submit", function(event) {
         event.preventDefault();
@@ -44,12 +22,35 @@ openBtnProjects.addEventListener("click", function() {
         setActiveProject(projects.length - 1);
 
         form.reset();
-        projectFormContainer.removeChild(form);
+        projectFormContainer.innerHTML = '';
         renderProjects();
     });
 });
 
 openBtnTasks.addEventListener("click", function() {
+    const form = taskForm();
+
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        var taskName = document.getElementById("task-name").value;
+        var taskDescription = document.getElementById("task-description").value;
+        var taskPriority = document.getElementById("task-priority").value;
+        var taskDate = document.getElementById("task-date").value;
+
+        const taskClass = new Task(taskName, taskDescription, taskDate, taskPriority);
+        const activeProjectIndex = getActiveProjectIndex();
+        let projects = JSON.parse(localStorage.getItem('projects')) || [];
+        const activeProject = projects[activeProjectIndex];
+        activeProject.tasks.push(taskClass);
+        localStorage.setItem('projects', JSON.stringify(projects));
+        form.reset();
+        taskFormContainer.innerHTML = '';
+        renderProjects();
+    });
+});
+
+export function taskForm(title = '', description = '', priority = 'Low', date = '') {
     taskFormContainer.innerHTML = '';
 
     var dialog = document.createElement("dialog");
@@ -77,12 +78,14 @@ openBtnTasks.addEventListener("click", function() {
     inputName.name = "task-name";
     inputName.placeholder = "Title";
     inputName.required = true;
+    inputName.value = title;
     
     var inputDescription = document.createElement("input");
     inputDescription.type = "text";
     inputDescription.id = "task-description";
     inputDescription.name = "task-description";
     inputDescription.placeholder = "Description (optional)";
+    inputDescription.value = description;
 
     var labelPriority = document.createElement("label");
     labelPriority.setAttribute("for", "task-priority");
@@ -91,6 +94,7 @@ openBtnTasks.addEventListener("click", function() {
     var selectPriority = document.createElement("select");
     selectPriority.id = "task-priority";
     selectPriority.name = "task-priority";
+    
 
     var option1 = document.createElement("option");
     option1.value = "Low";
@@ -107,6 +111,8 @@ openBtnTasks.addEventListener("click", function() {
     option3.textContent = "High";
     selectPriority.appendChild(option3);
 
+    selectPriority.value = priority;
+
     var labelDate = document.createElement("label");
     labelDate.setAttribute("for", "task-date");
     labelDate.textContent = "Due date:";
@@ -116,6 +122,7 @@ openBtnTasks.addEventListener("click", function() {
     inputDate.id = "task-date";
     inputDate.name = "task-date";
     inputDate.required = true;
+    inputDate.value = date;
 
     var submitButton = document.createElement("button");
     submitButton.type = "submit";
@@ -141,26 +148,51 @@ openBtnTasks.addEventListener("click", function() {
 
     dialog.showModal();
 
-    form.addEventListener("submit", function(event) {
+    return form;
+}
+
+export function projectForm(title = '') {
+    projectFormContainer.innerHTML = '';
+
+    var dialog = document.createElement("dialog");
+
+    var form = document.createElement("form");
+    form.id = "project-form";
+    
+    var label = document.createElement("label");
+    label.setAttribute("for", "project-name");
+    label.textContent = "Project title:";
+    
+    var input = document.createElement("input");
+    input.type = "text";
+    input.id = "project-name";
+    input.name = "project-name";
+    input.required = true;
+    input.value = title;
+
+    var submitButton = document.createElement("button");
+    submitButton.type = "submit";
+    submitButton.textContent = "ok";
+
+    var closeButton = document.createElement("button");
+    closeButton.textContent = "cancel";
+
+    closeButton.addEventListener('click', (event) => {
         event.preventDefault();
-
-        var taskName = document.getElementById("task-name").value;
-        var taskDescription = document.getElementById("task-description").value;
-        var taskPriority = document.getElementById("task-priority").value;
-        var taskDate = document.getElementById("task-date").value;
-
-        const taskClass = new Task(taskName, taskDescription, taskDate, taskPriority);
-        const activeProjectIndex = getActiveProjectIndex();
-        let projects = JSON.parse(localStorage.getItem('projects')) || [];
-        const activeProject = projects[activeProjectIndex];
-        if (activeProject) {
-            activeProject.tasks.push(taskClass);
-            localStorage.setItem('projects', JSON.stringify(projects));
-        }
-
         form.reset();
-        dialog.close();
-        taskFormContainer.removeChild(dialog);
-        renderProjects();
+        projectFormContainer.innerHTML = '';
     });
-});
+    
+    form.appendChild(label);
+    form.appendChild(input);
+    form.appendChild(closeButton);
+    form.appendChild(submitButton);
+
+    dialog.appendChild(form);
+    
+    projectFormContainer.appendChild(dialog);
+
+    dialog.showModal();
+
+    return form;
+}

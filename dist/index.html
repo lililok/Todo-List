@@ -6,11 +6,9 @@
     <title>Todo List</title>
 <script defer src="main.js"></script></head>
 <body>
-    <div class="header">
-        <h1 class="logo">Do-To</h1>
-    </div>
     <div class="container">
         <div class="sidebar">
+            <h1 class="logo">Do-To</h1>
             <div class="project-list"></div>
             <div class="add-project">
                 <h3 class="sidebar-text">Add a project</h3>
@@ -19,11 +17,13 @@
             </div>
         </div>
         <div class="content">
-            <h1 class="project-name"></h1>
-            <div class="add-task">
-                <h3 class="content-text">Add a task</h3>
-                <button class="open-btn" id="tasks">+</button>
-                <div class="task-form-container"></div>
+            <div class="content-header">
+                <h1 class="project-name"></h1>
+                <div class="add-task">
+                    <h3 class="content-text">Add a task</h3>
+                    <button class="open-btn" id="tasks">+</button>
+                    <div class="task-form-container"></div>
+                </div>
             </div>
             <div class="task-list"></div>
         </div>

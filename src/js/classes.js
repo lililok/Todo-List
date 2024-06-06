@@ -13,13 +13,9 @@ export class Task {
 }
 
 export class Project {
-    constructor(title, active=true) {
+    constructor(title, system=false) {
         this.title = title;
         this.tasks = [];
-        this.active = active;
-    }
-    
-    addTask(task) {
-        this.tasks.push(task);
+        this.system = system;
     }
 }
