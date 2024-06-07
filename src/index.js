@@ -1,12 +1,13 @@
 import './style.css';
 import "./js/forms.js";
-import { renderProjects } from './js/render.js';
+import { renderProjects, renderLogo } from './js/render.js';
 import { setActiveProject } from './js/storage.js';
 import { Project } from './js/classes.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     createDefaultProject();
     renderProjects();
+    renderLogo();
 });
 
 function createDefaultProject() {

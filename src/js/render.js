@@ -1,6 +1,10 @@
 import { setActiveProject, getActiveProjectIndex, deleteTask, deleteProject, updateProject, updateTask} from './storage.js';
 import { Task } from './classes.js';
 
+import updateIcon from '../images/updateIcon.svg';
+import deleteIcon from '../images/deleteIcon.svg';
+import pineIcon from '../images/pineIcon.svg';
+
 export function renderProjects() {
     const projectList = document.querySelector('.project-list')
     const taskList = document.querySelector('.task-list');
@@ -18,14 +22,14 @@ export function renderProjects() {
         projectDiv.innerHTML = `<p>${project.title}</p>`;
 
         if (!project.system) {
-            const updateButton = document.createElement('button');
+            const updateButton = document.createElement('img');
             updateButton.className = 'update-btn project';
-            updateButton.textContent = 'update';
+            updateButton.src = updateIcon;
             projectDiv.appendChild(updateButton);
 
-            const deleteButton = document.createElement('button');
+            const deleteButton = document.createElement('img');
             deleteButton.className = 'delete-btn project';
-            deleteButton.textContent = 'delete';
+            deleteButton.src = deleteIcon;
             projectDiv.appendChild(deleteButton);
 
             projectDiv.querySelector('.delete-btn.project').addEventListener('click', (e) => {
@@ -68,13 +72,23 @@ export function renderProjects() {
             }
             taskDiv.innerHTML = `
                 <input type="checkbox" class="status-checkbox" ${currentTask.status ? 'checked' : ''}>
-                <p>Task: ${currentTask.title}</p>
-                <p>Description: ${currentTask.description}</p>
-                <p>Priority: ${currentTask.priority}</p>
-                <p>Date: ${currentTask.date}</p>
-                <button class="update-btn task">update</button>
-                <button class="delete-btn task">delete</button>
+                <div class="task-text">
+                    <p id="task-title-text">${currentTask.title}</p>
+                    <p id="task-description-text">${currentTask.description}</p>
+                </div>
+                <p id="task-priority-text">${currentTask.priority}</p>
+                <p id="task-date-text">${currentTask.date}</p>
             `;
+
+            const updateButton = document.createElement('img');
+            updateButton.className = 'update-btn task';
+            updateButton.src = updateIcon;
+            taskDiv.appendChild(updateButton);
+
+            const deleteButton = document.createElement('img');
+            deleteButton.className = 'delete-btn task';
+            deleteButton.src = deleteIcon;
+            taskDiv.appendChild(deleteButton);
     
             taskDiv.querySelector('.delete-btn.task').addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -100,6 +114,15 @@ export function renderProjects() {
         });
     }
 };
+
+export function renderLogo() {
+    const logoDiv = document.querySelector('.logo')
+    const logoImg = document.createElement('img');
+    logoImg.className = 'logo-img';
+    logoImg.src = pineIcon;
+    logoDiv.appendChild(logoImg);
+
+}
 
 
 
