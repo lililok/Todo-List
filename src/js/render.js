@@ -76,8 +76,8 @@ export function renderProjects() {
                     <p id="task-title-text">${currentTask.title}</p>
                     <p id="task-description-text">${currentTask.description}</p>
                 </div>
-                <p id="task-priority-text">${currentTask.priority}</p>
-                <p id="task-date-text">${currentTask.date}</p>
+                <div id="task-priority-${currentTask.priority.toLowerCase()}">&nbsp;</div>
+                <p id="task-date-text">${currentTask.date.replace(/(\d{4})-(\d{2})-(\d{2})/, '$2/$3/$1')}</p>
             `;
 
             const updateButton = document.createElement('img');

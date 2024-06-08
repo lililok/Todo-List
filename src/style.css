@@ -6,6 +6,7 @@
 body {
     width: 100%;
     height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .container {
@@ -16,11 +17,12 @@ body {
 /* sidebar */
 
 .sidebar {
-    background-color: rgb(26, 77, 46);
+    background-color: #16a34a;
     height: 100vh;
     display: grid;
     grid-template-rows: 0.3fr 2fr 0.3fr;
     padding: 10px;
+    gap: 5px;
 }
 
 .logo {
@@ -39,6 +41,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 5px;
+    background-color: #14532d;
+    padding: 5px;
 }
 
 .project {
@@ -46,19 +50,32 @@ body {
     grid-template-columns: 1fr 0.1fr 0.1fr;
     gap: 3px;
     padding: 5px;
-    background-color: rgb(85, 122, 80);
+    background-color: #15803d;
+    border-radius: 5px;
 }
 
-.project.active {
-    box-shadow: -2px 2px rgb(77, 255, 148);
+.project.active, body > div > div.sidebar > div.project-list > div.project.active > img.update-btn.project, body > div > div.sidebar > div.project-list > div.project.active > img.delete-btn.project{
+    background-color: #86efac;
+}
+
+.project:hover {
+    box-shadow: -2px 2px #f0fdf4;
+}
+
+.update-btn.project:hover, 
+.delete-btn.project:hover {
+    box-shadow: none;
 }
 
 .add-project {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-self: center;
+    padding: 10px;
     gap: 5px;
-    background-color: rgb(85, 122, 80);
+    background-color: #15803d;
+    border-radius: 5px;
 }
 
 .sidebar-text {
@@ -68,35 +85,75 @@ body {
 /* content */
 
 .content {
-    background-color: rgb(232, 223, 202);
+    background-color: #facc15;
     padding: 20px;
     display: grid;
     grid-template-rows: 0.3fr 3fr;
+    gap: 5px;
 }
 
 .add-task {
-    background-color: rgb(245, 239, 230);
+    background-color: #fde047;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-self: center;
+    padding: 10px;
+    gap: 5px;
+    border-radius: 5px;
 }
 
-.completed p {
+.completed .task-text {
     text-decoration: line-through;
+    color: rgb(138, 124, 54);
 }
 
 .task {
-    background-color: rgb(245, 239, 230);
+    background-color: #fde047;
     display: grid;
-    grid-template-columns: 0.2fr 2fr 1fr 1fr 0.1fr 0.1fr;
+    grid-template-columns: 0.2fr 2fr 0.5fr 0.3fr 0.07fr 0.07fr;
     align-items: center;
     gap: 5px;
     padding: 5px;
     margin-bottom: 5px;
+    border-radius: 5px;
 }
 
 .task-list {
+    background-color: #eab308;
+    padding: 5px;
+}
 
+.status-checkbox {
+    width: 25px;
+    height: 25px;
+    justify-self: center;
+}
+
+.project-name {
+    align-self: center;
+}
+
+#task-date-text {
+    text-align: center;
 }
 
 /* dialogs */
+
+dialog {
+    display: flex;
+    align-self: center;
+    justify-self: center;
+    border: none;
+}
+
+form {
+    display: flex;
+    align-self: center;
+    justify-self: center;
+    flex-direction: column;
+    gap: 5px;
+}
 
 /* buttons */
 
@@ -107,9 +164,34 @@ body {
 
 .open-btn {
     border-radius: 50%;
-    border: 1px solid #3f571f;
     padding: 10px 20px;
     font-size: 2em;
     cursor: pointer;
+    border: none;
 }
 
+.open-btn#projects {
+    background-color: #14532d;
+}
+
+.open-btn#tasks {
+    background-color: #fef08a;
+    border: 1px solid rgb(181, 152, 64);
+}
+
+/* priorities */
+
+#task-priority-high {
+    background-color: red;
+    border: 3px solid rgb(248, 232, 116);
+}
+
+#task-priority-medium {
+    background-color: orange;
+    border: 3px solid rgb(248, 232, 116);
+}
+
+#task-priority-low {
+    background-color: green;
+    border: 3px solid rgb(248, 232, 116);
+}

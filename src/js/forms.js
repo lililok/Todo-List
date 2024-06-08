@@ -59,6 +59,8 @@ export function taskForm(title = '', description = '', priority = 'Low', date = 
     form.id = "task-form";
 
     var closeButton = document.createElement("button");
+    closeButton.className = 'close-button';
+    closeButton.id = "task";
     closeButton.textContent = "⨯";
 
     closeButton.addEventListener('click', (event) => {
@@ -79,6 +81,7 @@ export function taskForm(title = '', description = '', priority = 'Low', date = 
     inputName.placeholder = "Title";
     inputName.required = true;
     inputName.value = title;
+    inputName.setAttribute('maxlength', '60');
     
     var inputDescription = document.createElement("input");
     inputDescription.type = "text";
@@ -86,6 +89,7 @@ export function taskForm(title = '', description = '', priority = 'Low', date = 
     inputDescription.name = "task-description";
     inputDescription.placeholder = "Description (optional)";
     inputDescription.value = description;
+    inputDescription.setAttribute('maxlength', '90');
 
     var labelPriority = document.createElement("label");
     labelPriority.setAttribute("for", "task-priority");
@@ -125,6 +129,8 @@ export function taskForm(title = '', description = '', priority = 'Low', date = 
     inputDate.value = date;
 
     var submitButton = document.createElement("button");
+    submitButton.className = 'submit-button';
+    submitButton.id = "task";
     submitButton.type = "submit";
     submitButton.textContent = "ok";
     
@@ -162,6 +168,9 @@ export function projectForm(title = '') {
     var label = document.createElement("label");
     label.setAttribute("for", "project-name");
     label.textContent = "Project title:";
+
+    const inputProject = document.createElement('div');
+    inputProject.className = 'input-project';
     
     var input = document.createElement("input");
     input.type = "text";
@@ -169,12 +178,17 @@ export function projectForm(title = '') {
     input.name = "project-name";
     input.required = true;
     input.value = title;
+    input.setAttribute('maxlength', '30');
 
     var submitButton = document.createElement("button");
     submitButton.type = "submit";
+    submitButton.className = 'submit-button';
+    submitButton.id = "project";
     submitButton.textContent = "ok";
 
     var closeButton = document.createElement("button");
+    closeButton.className = 'close-button';
+    closeButton.id = "project";
     closeButton.textContent = "cancel";
 
     closeButton.addEventListener('click', (event) => {
@@ -184,9 +198,10 @@ export function projectForm(title = '') {
     });
     
     form.appendChild(label);
-    form.appendChild(input);
-    form.appendChild(closeButton);
-    form.appendChild(submitButton);
+    inputProject.appendChild(input);
+    inputProject.appendChild(closeButton);
+    inputProject.appendChild(submitButton);
+    form.appendChild(inputProject);
 
     dialog.appendChild(form);
     
