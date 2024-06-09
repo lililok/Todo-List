@@ -78,9 +78,11 @@ body {
     border-radius: 5px;
 }
 
-.sidebar-text {
-
+.project:first-child {
+    padding: 10px;
+    font-weight: bold;
 }
+
 
 /* content */
 
@@ -155,6 +157,48 @@ form {
     gap: 5px;
 }
 
+#project-dialog {
+    background-color: rgb(64, 137, 90);
+    border-radius: 5px;
+}
+
+#task-dialog {
+    background-color: rgb(205, 176, 63);
+    border-radius: 5px;
+}
+
+#task-form {
+    gap: 5px;
+}
+
+input#project-name {
+    margin-right: 5px;
+    background-color: rgb(61, 110, 80);
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+}
+
+label[for="project-name"] {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+form#task-form > input, select {
+    background-color: rgb(227, 204, 83);
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+}
+
+form#task-form *:focus, *::selection {
+    background-color: rgb(248, 232, 116);
+}
+
+::placeholder {
+    color: black;
+}
+
 /* buttons */
 
 .update-btn, .delete-btn {
@@ -177,6 +221,44 @@ form {
 .open-btn#tasks {
     background-color: #fef08a;
     border: 1px solid rgb(181, 152, 64);
+}
+
+.close-button#project {
+    margin-right: 5px;
+}
+
+button#project {
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #14532d;
+}
+
+button#project:hover {
+    background-color: rgb(106, 243, 155);
+}
+
+button#task {
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(181, 152, 64);
+}
+
+button#task:hover {
+    background-color: rgb(248, 232, 116);;
+}
+
+.close-button#task {
+    position: relative;
+    width: 30px;
+    right: -160px;
+}
+
+.submit-button#task {
+    width: 50px;
+    align-self: center;
+    margin-top: 10px;
 }
 
 /* priorities */

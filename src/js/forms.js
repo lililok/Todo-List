@@ -54,6 +54,7 @@ export function taskForm(title = '', description = '', priority = 'Low', date = 
     taskFormContainer.innerHTML = '';
 
     var dialog = document.createElement("dialog");
+    dialog.id = "task-dialog";
 
     var form = document.createElement("form");
     form.id = "task-form";
@@ -132,7 +133,7 @@ export function taskForm(title = '', description = '', priority = 'Low', date = 
     submitButton.className = 'submit-button';
     submitButton.id = "task";
     submitButton.type = "submit";
-    submitButton.textContent = "ok";
+    submitButton.textContent = "submit";
     
     form.appendChild(closeButton);
 
@@ -161,6 +162,7 @@ export function projectForm(title = '') {
     projectFormContainer.innerHTML = '';
 
     var dialog = document.createElement("dialog");
+    dialog.id = "project-dialog";
 
     var form = document.createElement("form");
     form.id = "project-form";
